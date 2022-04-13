@@ -16,7 +16,6 @@ function createWindow () {
 
     })
 
-    //if process.argv[2] == "" {
     MainWindow.loadURL('https://google.com')
 }
 
