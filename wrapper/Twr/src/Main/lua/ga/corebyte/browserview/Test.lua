@@ -1,8 +1,10 @@
 local Window = Import("ga.corebyte.browserview"):new(
     {
-        ExecutablePath = "C:\\Users\\Thijmen\\Documents\\Github\\Self\\browserview\\browserview\\browserview-win32-x64\\browserview.exe"
+        ExecutablePath = "browserview/browserview-darwin-x64/browserview.app/Contents/MacOS/browserview",
     }
 )
 Window:Run(
 
 )
+
+require("timer").sleep(2000)

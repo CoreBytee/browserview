@@ -3,33 +3,43 @@ local WebHelper = Emitter:extend()
 local Wrap = coroutine.wrap
 local Spawn = require("coro-spawn")
 local Uv = require("uv")
+local Json = require("json")
 
 function WebHelper:initialize(Port)
-    self.Port = Port
+	self.Port = Port
 end
 
 function WebHelper:Start()
-    local Result, Error = Spawn(
-        TypeWriter.This,
-        {
-            args = {
-                "execute",
-                "--input=" .. TypeWriter.Here .. "/./webhelper.twr",
-                "--port=" .. self.Port
-            }
-        }
-    )
+	local Result, Error = Spawn(
+		TypeWriter.This,
+		{
+			args = {
+				"execute",
+				"--input=" .. TypeWriter.Here .. "/./webhelper.twr",
+				"--port=" .. self.Port
+			}
+		}
+	)
 
-    p(Error)
-    Wrap( function () for Message in Result.stdout.read do self:emit("stdout", Message) print(Message) end end )()
-    Wrap( function () for Message in Result.stderr.read do self:emit("stderr", Message) print(Message) end end )()
+	Wrap( function () for Message in Result.stdout.read do self:emit("stdout", Message) print(Message) end end )()
+	Wrap( function () for Message in Result.stderr.read do self:emit("stderr", Message) print(Message) end end )()
 
-    self.Result = Result
+	self.ProcessResult = Result
+end
+
+function WebHelper:Write(EndPoint, Message)
+	local Data = {
+		Type = "Message",
+		Data = {
+			EndPoint = EndPoint,
+			Message = Message
+		}
+	}
+	self.ProcessResult.stdin.write(Json.encode(Data))
 end
 
 function WebHelper:Stop()
-    p("Stopping")
-    p(Uv.process_kill(self.Result.handle, 0))
+	Uv.process_kill(self.ProcessResult.handle, Uv.constants.SIGINT)
 end
 
 return WebHelper

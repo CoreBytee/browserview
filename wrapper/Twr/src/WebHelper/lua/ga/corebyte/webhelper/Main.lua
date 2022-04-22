@@ -12,3 +12,10 @@ SocketProvider:on(
         p(Name)
     end
 )
+
+process.stdin:on(
+    "data",
+    function (dat)
+        print(dat)
+    end
+)

@@ -2,3 +2,5 @@ TypeWriter
 webhelper.twr
 
 *.ps1
+ExecuteablePath.lua
+StartTypeWriter.sh
