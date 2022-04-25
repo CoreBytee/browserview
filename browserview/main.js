@@ -10,11 +10,15 @@ app.on(
             }
         )
 
+        //Window.setMenu(null)
+
         Window.loadURL('https://google.com')
 
         const ws = new WebSocket(
             'ws://localhost:25623/abc')
         ;
+
+        console.log("hi")
     }
 )
 

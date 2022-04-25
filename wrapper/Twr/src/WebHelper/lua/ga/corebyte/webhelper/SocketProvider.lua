@@ -1,4 +1,5 @@
-local SocketProvider = Emitter:extend()
+TypeWriter.Runtime.LoadInternal("BetterEmitter")
+local SocketProvider = Import("ga.corebyte.BetterEmitter"):extend()
 
 function SocketProvider:initialize(Port)
     self.App = require("weblit").app

@@ -1,4 +1,5 @@
-local WebHelper = Emitter:extend()
+TypeWriter.Runtime.LoadInternal("BetterEmitter")
+local WebHelper = Import("ga.corebyte.BetterEmitter"):extend()
 
 local Wrap = coroutine.wrap
 local Spawn = require("coro-spawn")
@@ -21,8 +22,8 @@ function WebHelper:Start()
 		}
 	)
 
-	Wrap( function () for Message in Result.stdout.read do self:emit("stdout", Message) print(Message) end end )()
-	Wrap( function () for Message in Result.stderr.read do self:emit("stderr", Message) print(Message) end end )()
+	Wrap( function () for Message in Result.stdout.read do self:emit("stdout", Message) TypeWriter.Logger.Info("WebHelper > " .. Message) end end )()
+	Wrap( function () for Message in Result.stderr.read do self:emit("stderr", Message) TypeWriter.Logger.Info("WebHelper > " .. Message) end end )()
 
 	self.ProcessResult = Result
 end

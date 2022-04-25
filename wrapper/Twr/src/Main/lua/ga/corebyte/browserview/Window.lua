@@ -1,4 +1,5 @@
-local Window = Emitter:extend()
+TypeWriter.Runtime.LoadInternal("BetterEmitter")
+local Window = Import("ga.corebyte.BetterEmitter"):extend()
 
 local Spawn = require("coro-spawn")
 local Wrap = coroutine.wrap
@@ -22,8 +23,8 @@ function Window:Run(WindowOptions)
     self.ProcessResult = Result
 
     -- Output stdin and stdout to the emitter
-    Wrap( function () for Message in Result.stdout.read do self:emit("stdout", Message) print(Message) end end )()
-    Wrap( function () for Message in Result.stderr.read do self:emit("stderr", Message) print(Message) end end )()
+    Wrap( function () for Message in Result.stdout.read do self:emit("stdout", Message) TypeWriter.Logger.Info("Electron > " .. Message) end end )()
+    Wrap( function () for Message in Result.stderr.read do self:emit("stderr", Message) TypeWriter.Logger.Info("Electron > " .. Message) end end )()
     Wrap(function ()
         Result.waitExit()
         self:emit("exit")
