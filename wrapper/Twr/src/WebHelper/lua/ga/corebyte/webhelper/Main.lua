@@ -1,7 +1,6 @@
 local SocketProvider = Import("ga.corebyte.webhelper.SocketProvider"):new(TypeWriter.ArgumentParser:GetArgument("port", "p", 1))
 
-p("hi")
-
+print("Webhelper is loading...")
 
 SocketProvider:Start()
 
@@ -19,3 +18,5 @@ process.stdin:on(
         print(dat)
     end
 )
+
+print("Webhelper is ready.")

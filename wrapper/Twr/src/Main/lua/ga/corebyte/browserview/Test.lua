@@ -13,4 +13,9 @@ Window:Run(
 
 )
 
-require("timer").sleep(2000)
+while true do
+    require("timer").sleep(2000)
+    Window:SetSize(800, 600, true)
+    require("timer").sleep(2000)
+    Window:SetSize(800, 500, true)
+end

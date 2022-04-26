@@ -6,6 +6,8 @@ function SocketProvider:initialize(Port)
     local App = self.App
     self.Port = Port
 
+    self.Connections = {}
+
     App.bind(
         {
             host = "0.0.0.0",
@@ -32,19 +34,32 @@ function SocketProvider:initialize(Port)
             path = "/:Name"
         },
         function (Request, Read, Write)
-            p(Request.params)
+            local ConnectionId = Request.params.Name
+            print("Accepted connection: " .. ConnectionId)
+            self.Connections[ConnectionId] = {
+                Read = Read,
+                Write = Write
+            }
 
             for Message in Read do
                 if #Message.payload ~= 0 then
-                    self:emit("Message", Message.payload, Request.params.Name)
+                    self:emit("Message", Message.payload, ConnectionId)
                 else
                     break
                 end
             end
+
+            self.Connections[ConnectionId] = nil
             Write()
         end
     )
     
+end
+
+function SocketProvider:Send(Message, ConnectionId)
+    if self.Connections[ConnectionId] ~= nil then
+        self.Connections[ConnectionId].Write(Message)
+    end
 end
 
 function SocketProvider:Start()

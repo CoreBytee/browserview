@@ -32,13 +32,14 @@ function Window:Run(WindowOptions)
     end)()
 
     self.WebHelper:Write("a", "b")
-
-
-    p(Error)
 end
 
 function Window:Stop()
 	Uv.process_kill(self.ProcessResult.handle, Uv.constants.SIGINT)
+end
+
+function Window:SetSize(Width, Height, Animate)
+    self.WebHelper:CallFunction("SetSize", Width, Height, Animate)
 end
 
 return Window

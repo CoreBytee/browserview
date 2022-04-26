@@ -4,3 +4,4 @@ webhelper.twr
 *.ps1
 ExecuteablePath.lua
 StartTypeWriter.sh
+BuildElectron.sh
