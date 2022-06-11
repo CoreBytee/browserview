@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . --overwrite"
+    "build": "electron-packager . --overwrite --icon=./Icon.ico"
   },
   "repository": "",
   "keywords": [],

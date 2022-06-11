@@ -1,38 +1,27 @@
 const {app, BrowserWindow} = require('electron')
-const {WebSocket} = require('ws')
 
 app.on(
     'ready',
-    function () {
+     function () {
         const Window = new BrowserWindow(
             {
             
             }
         )
 
-        //Window.setMenu(null)
-
-        Window.loadURL('https://google.com')
-
-        const ConnectedSocket = new WebSocket(
-            'ws://localhost:25623/Main')
-        ;
-
-        ConnectedSocket.on(
-            'open',
-            function() {
-                console.log("Connected to server")
+        var Socket = require('./Socket')
+        Socket.RegisterCallback(
+            "Function",
+            async function (Data, Return) {
+                Return(await Window[Data.Name](...Data.Arguments))
             }
-        );
+        )
+        Socket.Connect()
 
-        ConnectedSocket.on(
-            'message',
-            function(MessageData) {
-                console.log('received: %s', MessageData);
-            }
-        );
+        Window.setMenu(null)
 
-        console.log("hi")
+        //Window.loadURL('https://google.com')
+
     }
 )
 
