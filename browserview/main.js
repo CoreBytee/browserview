@@ -18,7 +18,6 @@ app.on(
             
             }
         )
-        console.log(Window.emit)
 
         var Socket = require('./Socket')
         Socket.RegisterCallback(
