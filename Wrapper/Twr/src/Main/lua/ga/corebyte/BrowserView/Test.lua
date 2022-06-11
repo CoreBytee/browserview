@@ -11,4 +11,4 @@ local Window = Import("ga.corebyte.BrowserView"):new(
 
 Window:Start()
 Sleep(1000)
-p(Window:SetClosable(false))
+p(Window:SetProgressBar(0.5))
