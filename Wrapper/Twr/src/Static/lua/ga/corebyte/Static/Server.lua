@@ -15,7 +15,7 @@ return function (Settings)
     )
 
     local Server = App:listen(Settings.Port, Settings.Host)
-    return App, function ()
+    return string.format("http://localhost:%s/", Settings.Port), App, function ()
         Server:destroy()
     end
 end
