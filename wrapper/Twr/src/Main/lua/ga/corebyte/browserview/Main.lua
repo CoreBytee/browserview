@@ -1,1 +1,0 @@
-return Import("ga.corebyte.browserview.Window")
