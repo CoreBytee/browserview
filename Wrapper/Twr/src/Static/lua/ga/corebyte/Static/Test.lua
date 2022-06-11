@@ -1,1 +1,1 @@
-Import("ga.corebyte.Static")()
+p(Import("ga.corebyte.Static")())
