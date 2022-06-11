@@ -1,13 +1,24 @@
 const {app, BrowserWindow} = require('electron')
 
+async function PatchEmitter(Emitter, OnAny) {
+    let OriginalEmit = Emitter.emit
+    Emitter.emit = function(...Data) {
+        if (OnAny) {
+            OnAny(...Data)
+        }
+        OriginalEmit.apply(Emitter, Data)
+    }
+}
+
 app.on(
     'ready',
-     function () {
+    async function () {
         const Window = new BrowserWindow(
             {
             
             }
         )
+        console.log(Window.emit)
 
         var Socket = require('./Socket')
         Socket.RegisterCallback(
@@ -17,7 +28,11 @@ app.on(
             }
         )
         Socket.Connect()
-
+        await PatchEmitter(Window, function(Event, ...Data) {
+            console.log(`Window event: ${Event} ${Data}`)
+            Data[0] = null
+            Socket.Send("backend", "WindowEvent", Event, Data)
+        })
         Window.setMenu(null)
 
         //Window.loadURL('https://google.com')

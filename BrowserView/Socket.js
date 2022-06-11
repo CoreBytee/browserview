@@ -7,6 +7,15 @@ async function RegisterCallback(CallbackName, Callback) {
     Callbacks[CallbackName] = Callback
 }
 
+async function Send(To, Name, ...Data) {
+    ConnectedSocket.send(JSON.stringify({
+        Type: "Message",
+        To: To,
+        Name: Name,
+        Data: Data
+    }))
+}
+
 async function Connect() {
     ConnectedSocket = new WebSocket(
         `ws://localhost:${process.argv[2]}/front/${process.argv[1]}`
@@ -45,5 +54,6 @@ async function Connect() {
 
 module.exports = {
     RegisterCallback: RegisterCallback,
-    Connect: Connect
+    Connect: Connect,
+    Send: Send
 }
