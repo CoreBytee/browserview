@@ -120,7 +120,7 @@ function WebHelper:Send(To, Name, ...)
             return Response.Sequence == Sequence
         end
     )
-    return ResponseData.Data
+    return table.unpack(ResponseData.Data)
 end
 
 return WebHelper
