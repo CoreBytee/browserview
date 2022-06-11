@@ -10,5 +10,9 @@ local Window = Import("ga.corebyte.BrowserView"):new(
 )
 
 Window:Start()
-Sleep(1000)
+--Sleep(1000)
 p(Window:SetProgressBar(0.5))
+p(Window:LoadURL("https://dashboard.sugar.corebyte.ga"))
+Sleep(3000)
+Window:LoadURL("https://youtube.com")
+Window:Center()
