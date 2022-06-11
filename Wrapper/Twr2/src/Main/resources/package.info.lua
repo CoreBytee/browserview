@@ -16,7 +16,8 @@ return { InfoVersion = 1, -- Dont touch this
 
     Dependencies = {
         Luvit = {
-            "creationix/coro-spawn"
+            "creationix/coro-spawn",
+            "creationix/coro-websocket"
         },
         Git = {},
         Dua = {}
