@@ -58,7 +58,7 @@ local function Connect(self)
                 Write = Write
             }
         end
-        Sleep(50)
+        Sleep(100)
     end
     return Connection
 end
