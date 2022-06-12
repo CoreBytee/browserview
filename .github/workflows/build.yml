@@ -12,9 +12,14 @@ jobs:
   Mac-Build:
     runs-on: macos-latest
     steps:
+      - name: Clone
+        run: git clone ${{ github.repository }}
+        
       - name: Download & Install TypeWriter
         working-directory: ./BrowserView/
         run: |
           ls
           npm run build
           ls
+    
+    
