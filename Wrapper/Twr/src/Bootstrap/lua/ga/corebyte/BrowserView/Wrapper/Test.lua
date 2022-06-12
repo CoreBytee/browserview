@@ -1,4 +1,4 @@
-local Window = Import("ga.corebyte.BrowserView.Wrapper").Download().LoadAll().NewWindow({Stdio = true})
+local Window = Import("ga.corebyte.BrowserView.Wrapper").Download().LoadAll().NewWindow({Stdio = false})
 Window:Start()
 
 Window:OnAny(
