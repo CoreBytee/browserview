@@ -7,7 +7,9 @@ local Json = require("json")
 function WebSocketServer:initialize(Port)
     self.Port = Port
     self.Connections = {}
+    local LastDisconnection = string.random(16)
     local App = Weblit.app
+    local C = table.count
 
     App.bind(
         {
@@ -25,6 +27,7 @@ function WebSocketServer:initialize(Port)
         function (Request, Read, Write)
             local Name = Request.params.Name
             local Type = Request.params.Type
+            print("Connection " .. Type .. "@" .. Name)
             if self.Connections[Name] == nil then self.Connections[Name] = {} end
             self.Connections[Name][Type] = {
                 Read = Read,
@@ -54,6 +57,30 @@ function WebSocketServer:initialize(Port)
                 end
             end
             Write()
+            print("Disconnection " .. Type .. "@" .. Name)
+            self.Connections[Name][Type] = nil
+            if C(self.Connections[Name]) == 0 then
+                self.Connections[Name] = nil
+            end
+            if C(self.Connections) == 0 then
+                print("No more connections, shutting down in 1 minute")
+                local DisconnectionId = string.random(16)
+                LastDisconnection = DisconnectionId
+                coroutine.wrap(function ()
+                    Wait(60)
+                    if DisconnectionId ~= LastDisconnection then
+                        print("New disconnection came in")
+                        return
+                    end
+                    if C(self.Connections) ~= 0 then
+                        print("A new connection came in")
+                        return
+                    end
+                    print("Shutting down")
+                    process:exit()
+                end)()
+            end
+            
         end
     )
     
