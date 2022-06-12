@@ -55,3 +55,12 @@ jobs:
           asset_path: ./Bootstrap.twr
           asset_name: Wrapper-Twr-Bootstrap.twr
           overwrite: true
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: BrowserView-*
+          path: ./
+          
+      - name: List artifacts
+        run: |
+          ls
