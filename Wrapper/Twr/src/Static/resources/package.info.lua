@@ -17,7 +17,6 @@ return { InfoVersion = 1, -- Dont touch this
     Dependencies = {
         Luvit = {
             "voronianski/utopia",
-            "voronianski/static",
             "luvit/http",
             "creationix/mime"
         },
