@@ -18,12 +18,21 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.3.0
         
-      - name: Download & Install TypeWriter
+      - name: Build electron app
         working-directory: ./BrowserView/
         run: |
           ls
           npm install
           npm run build
           ls
-    
-    
+      
+      - name: Build Tar Archive
+        working-directory: ./BrowserView/
+        run: |
+          tar -cvf ../BrowserView-darwin-x64.tar ./browserview-darwin-x64/
+        
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: BrowserView-darwin-x64
+          path: ./BrowserView-darwin-x64.
