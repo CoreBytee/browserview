@@ -1,0 +1,20 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  Mac-Build:
+    runs-on: macos-latest
+    steps:
+      - name: Download & Install TypeWriter
+        working-directory: ./BrowserView/
+        run: |
+          ls
+          npm run build
+          ls
