@@ -4,8 +4,9 @@ local WindowWrapper = Import("ga.corebyte.BrowserView.Classes.WindowWrapper")
 
 function Window:initialize(Settings)
     self.ExecutablePath = Settings.ExecutablePath
+    self.WebHelper = Settings.WebHelper
 
-    self.WindowWrapper = WindowWrapper:new(self.ExecutablePath)
+    self.WindowWrapper = WindowWrapper:new(self.ExecutablePath, self.WebHelper)
 end
 
 function Window:Start()
