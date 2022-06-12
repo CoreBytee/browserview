@@ -57,10 +57,10 @@ jobs:
       - name: Build Tar Archive
         working-directory: ./BrowserView/
         run: |
-          tar -cvf ../BrowserView-darwin-x64.tar ./browserview-darwin-x64/
+          tar -cvf ../BrowserView-win32-x64.tar ./browserview-win32-x64/
         
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
-         name: BrowserView-darwin-x64
-         path: BrowserView-darwin-x64.tar
+         name: BrowserView-win32-x64
+         path: BrowserView-win32-x64.tar
