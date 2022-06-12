@@ -11,7 +11,6 @@ function BetterRequest(Method, URL, Headers, Body)
         TypeWriter.Logger.Error("Received code %s, %s", Response.code, Body)
     end
     Sleep(3000)
-    p("Retrying...")
     return BetterRequest(Method, URL, Headers, Body)
 end
 
