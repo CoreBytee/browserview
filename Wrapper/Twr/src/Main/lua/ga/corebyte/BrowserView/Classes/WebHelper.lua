@@ -111,11 +111,11 @@ function WebHelper:Send(To, Name, ...)
     local _, ResponseData = self:WaitFor(
         "Response",
         nil,
-        function (Response)
-            return Response.Sequence == Sequence
+        function (Response, Shutdown)
+            return Response.Sequence == Sequence or Shutdown == true
         end
     )
-    return table.unpack(ResponseData.Data)
+    return table.unpack(ResponseData.Data or {})
 end
 
 return WebHelper

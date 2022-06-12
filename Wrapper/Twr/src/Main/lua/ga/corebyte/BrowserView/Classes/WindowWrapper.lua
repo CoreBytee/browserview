@@ -13,7 +13,7 @@ function WindowWrapper:initialize(Parent, ExecutablePath, WebHelperPath, Stdio)
     self.WindowHelper = WindowHelper:new(ExecutablePath, self.SessionId, self.Port, Stdio)
     Parent:On("closed", function ()
         if self.WebHelper.Connection then
-            self.WebHelper.Connection.Write()
+            self.WebHelper:Emit("Response", {}, true)
             self.WebHelper.Connection.Write()
         end
     end)
