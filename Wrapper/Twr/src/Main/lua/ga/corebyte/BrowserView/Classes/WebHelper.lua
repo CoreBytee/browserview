@@ -26,9 +26,9 @@ local function SpawnProcess(self)
 				"--input=" .. self.WebHelperPath,
 				"--port=" .. self.Port
 			},
-            stdio = self.Stdio
-            --detached = true,
-            --hide = true
+            stdio = self.Stdio,
+            detached = true,
+            hide = true
 		}
 	)
     return Result, Error
