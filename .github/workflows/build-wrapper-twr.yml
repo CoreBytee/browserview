@@ -27,7 +27,7 @@ jobs:
       - name: Build Bootstrap
         run: |
           TypeWriter buildexecutable --input=./Wrapper/Twr/src/ --output=./ --branch=Bootstrap
-          ls
+          ls ./.TypeWriter/build/
           
       - name: Build Wrapper
         run: |
