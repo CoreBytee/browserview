@@ -78,6 +78,9 @@ function WebHelper:Start()
                     if Decoded.Type == "Response" then
                         self:Emit("Response", Decoded)
                     end
+                    if Decoded.Type == "Message" then
+                        self:Emit("Message", Decoded)
+                    end
                 end
             end
         end
