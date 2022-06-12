@@ -56,6 +56,14 @@ jobs:
           asset_name: Wrapper-Twr-Bootstrap.twr
           overwrite: true
           
+      - name: Cleanup
+        run: |
+          rm ./Bootstrap.twr
+          rm ./BrowserView.twr
+          rm ./Static.twr
+          rm ./WebHelper.twr
+          rm ./Wrapper-Twr-Libraries.tar
+          
       - uses: actions/download-artifact@v3
         with:
           name: BrowserView-darwin-x64
@@ -69,3 +77,15 @@ jobs:
       - name: List artifacts
         run: |
           ls
+          
+      - uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./BrowserView-darwin-x64.tar
+          overwrite: true
+          
+      - uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./BrowserView-win32-x64.tar
+          overwrite: true
