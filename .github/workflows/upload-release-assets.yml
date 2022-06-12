@@ -1,0 +1,51 @@
+name: Upload release assets
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  Build-Browserview:
+    uses: ./.github/workflows/build-browserview.yml
+  
+  Build-Wrapper-TWR:
+    uses: ./.github/workflows/build-wrapper-twr.yml
+    
+  Upload-Release-Assets:
+    runs-on: ubuntu-latest
+    needs: [Build-Browserview, Build-Wrapper-TWR]
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: Wrapper-Twr-Bootstrap
+          path: ./
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: Wrapper-Twr-Libraries
+          path: ./
+    
+      - name: List artifacts
+        run: |
+          ls
+          
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          
+      - name: Rezip files
+        run: |
+          for file in *; do echo "./${file}"; chmod +x ./${file}/*; cd ${file}; zip ../${file}.zip ./*; cd ..; rm -r ${file}; done
+          ls
+      
+      - name: Echo url
+        run: echo ${{ steps.get_release.outputs.upload_url }}
+          
+      - uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./*
+          overwrite: true
