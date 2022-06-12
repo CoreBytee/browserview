@@ -58,7 +58,7 @@ jobs:
         working-directory: ./BrowserView/
         run: |
           ls
-          tar -cvf ../BrowserView-win32-x64.tar ./browserview-win32-x64/
+          tar.exe -cvf ../BrowserView-win32-x64.tar ./browserview-win32-x64/
           ls
         
       - name: Upload a Build Artifact
