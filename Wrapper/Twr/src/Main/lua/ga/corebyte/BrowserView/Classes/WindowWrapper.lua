@@ -11,6 +11,12 @@ function WindowWrapper:initialize(Parent, ExecutablePath, WebHelperPath, Stdio)
     self.Port = 25675
     self.WebHelper = WebHelper:new(self.SessionId, self.Port, WebHelperPath, Stdio)
     self.WindowHelper = WindowHelper:new(ExecutablePath, self.SessionId, self.Port, Stdio)
+    Parent:On("closed", function ()
+        if self.WebHelper.Connection then
+            self.WebHelper.Connection.Write()
+            self.WebHelper.Connection.Write()
+        end
+    end)
 end
 
 function WindowWrapper:Start()
