@@ -8,6 +8,10 @@ async function RegisterCallback(CallbackName, Callback) {
 }
 
 async function Send(To, Name, ...Data) {
+    if (ConnectedSocket.readyState != 1) {
+        console.log("Not connected, dropping")
+        return
+    }
     ConnectedSocket.send(JSON.stringify({
         Type: "Message",
         To: To,
