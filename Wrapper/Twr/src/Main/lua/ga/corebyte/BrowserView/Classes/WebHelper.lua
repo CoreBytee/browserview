@@ -4,10 +4,17 @@ local Spawn = require("coro-spawn")
 local Json = require("json")
 local Wrap = coroutine.wrap
 
-function WebHelper:initialize(SessionId, Port, WebHelperPath)
+function WebHelper:initialize(SessionId, Port, WebHelperPath, Stdio)
     self.Port = Port
     self.SessionId = SessionId
     self.WebHelperPath = WebHelperPath
+    if Stdio == true then
+        self.Stdio = {
+            process.stdin.handle,
+            process.stdout.handle,
+            process.stderr.handle
+        }
+    end
 end
 
 local function SpawnProcess(self)
@@ -19,11 +26,7 @@ local function SpawnProcess(self)
 				"--input=" .. self.WebHelperPath,
 				"--port=" .. self.Port
 			},
-            stdio = {
-                process.stdin.handle,
-                process.stdout.handle,
-                process.stderr.handle
-            }
+            stdio = self.Stdio
             --detached = true,
             --hide = true
 		}

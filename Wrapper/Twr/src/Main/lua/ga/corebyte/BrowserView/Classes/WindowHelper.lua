@@ -3,21 +3,24 @@ local WindowHelper = Import("ga.corebyte.BetterEmitter"):extend()
 local Spawn = require("coro-spawn")
 local Uv = require("uv")
 
-function WindowHelper:initialize(Path, SessionId, Port)
+function WindowHelper:initialize(Path, SessionId, Port, Stdio)
     self.Path = Path
     self.SessionId = SessionId
     self.Port = Port
+    if Stdio == true then
+        self.Stdio = {
+            process.stdin.handle,
+            process.stdout.handle,
+            process.stderr.handle
+        }
+    end
 end
 
 function WindowHelper:Start()
     local Result, Error = Spawn(
         self.Path,
         {
-            stdio = {
-                process.stdin.handle,
-                process.stdout.handle,
-                process.stderr.handle
-            },
+            stdio = self.Stdio,
             args = {
                 self.SessionId,
                 self.Port

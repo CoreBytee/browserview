@@ -5,11 +5,11 @@ local WindowHelper = Import("ga.corebyte.BrowserView.Classes.WindowHelper")
 
 local Spawn = require("coro-spawn")
 
-function WindowWrapper:initialize(ExecutablePath, WebHelperPath)
+function WindowWrapper:initialize(ExecutablePath, WebHelperPath, Stdio)
     self.SessionId = string.random(16)
     self.Port = 25675
-    self.WebHelper = WebHelper:new(self.SessionId, self.Port, WebHelperPath)
-    self.WindowHelper = WindowHelper:new(ExecutablePath, self.SessionId, self.Port)
+    self.WebHelper = WebHelper:new(self.SessionId, self.Port, WebHelperPath, Stdio)
+    self.WindowHelper = WindowHelper:new(ExecutablePath, self.SessionId, self.Port, Stdio)
 end
 
 function WindowWrapper:Start()
