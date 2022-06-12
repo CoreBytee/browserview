@@ -72,6 +72,7 @@ function WebHelper:Start()
     coroutine.wrap(
         function ()
             for Message in Connection.Read do
+                Sleep(5)
                 local Payload = Message.payload
                 local Decoded = Json.decode(Payload)
                 if Decoded ~= nil then
