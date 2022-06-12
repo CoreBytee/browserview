@@ -58,7 +58,12 @@ jobs:
           
       - uses: actions/download-artifact@v3
         with:
-          name: BrowserView-*
+          name: BrowserView-darwin-x64
+          path: ./
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: BrowserView-win32-x64
           path: ./
           
       - name: List artifacts
