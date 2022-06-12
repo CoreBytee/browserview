@@ -4,21 +4,10 @@ local Spawn = require("coro-spawn")
 local Json = require("json")
 local Wrap = coroutine.wrap
 
-function WebHelper:initialize(SessionId, Port)
+function WebHelper:initialize(SessionId, Port, WebHelperPath)
     self.Port = Port
     self.SessionId = SessionId
-
-    self:On(
-        "stdout",
-        function (Message)
-            local Decoded, _, Error = Json.decode(Message)
-            if Decoded == nil then
-                return
-            end
-
-            self:Emit("JsonData", Decoded)
-        end
-    )
+    self.WebHelperPath = WebHelperPath
 end
 
 local function SpawnProcess(self)
@@ -27,7 +16,7 @@ local function SpawnProcess(self)
 		{
 			args = {
 				"execute",
-				"--input=" .. TypeWriter.Here .. "/./webhelper.twr",
+				"--input=" .. self.WebHelperPath,
 				"--port=" .. self.Port
 			},
             stdio = {
