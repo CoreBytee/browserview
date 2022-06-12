@@ -1,0 +1,91 @@
+name: Upload release assets
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  Build-Browserview:
+    uses: ./.github/workflows/build-browserview.yml
+  
+  Build-Wrapper-TWR:
+    uses: ./.github/workflows/build-wrapper-twr.yml
+    
+  Upload-Release-Assets:
+    runs-on: ubuntu-latest
+    needs: [Build-Browserview, Build-Wrapper-TWR]
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: Wrapper-Twr-Bootstrap
+          path: ./
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: Wrapper-Twr-Libraries
+          path: ./
+    
+      - name: List artifacts
+        run: |
+          ls
+          
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          
+      - name: Rezip files
+        run: |
+          tar -cvf ./Wrapper-Twr-Libraries.tar ./
+      
+      - name: Echo url
+        run: echo ${{ steps.get_release.outputs.upload_url }}
+          
+      - uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./Wrapper-Twr-Libraries.tar
+          overwrite: true
+          
+      - uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./Bootstrap.twr
+          asset_name: Wrapper-Twr-Bootstrap.twr
+          overwrite: true
+          
+      - name: Cleanup
+        run: |
+          rm ./Bootstrap.twr
+          rm ./BrowserView.twr
+          rm ./Static.twr
+          rm ./WebHelper.twr
+          rm ./Wrapper-Twr-Libraries.tar
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: BrowserView-darwin-x64
+          path: ./
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: BrowserView-win32-x64
+          path: ./
+          
+      - name: List artifacts
+        run: |
+          ls
+          
+      - uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./BrowserView-darwin-x64.tar
+          overwrite: true
+          
+      - uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./BrowserView-win32-x64.tar
+          overwrite: true
