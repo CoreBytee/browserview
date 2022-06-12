@@ -26,22 +26,22 @@ jobs:
           
       - name: Build Bootstrap
         run: |
-          TypeWriter buildexecutable --input=./Wrapper/Twr/src/ --output=./ --branch=Bootstrap
+          TypeWriter build --input=./Wrapper/Twr/src/ --output=./ --branch=Bootstrap
           ls ./.TypeWriter/build/
           
       - name: Build Wrapper
         run: |
-          TypeWriter buildexecutable --input=./Wrapper/Twr/src/ --output=./ --branch=Main
+          TypeWriter build --input=./Wrapper/Twr/src/ --output=./ --branch=Main
           ls
           
       - name: Build Static
         run: |
-          TypeWriter buildexecutable --input=./Wrapper/Twr/src/ --output=./ --branch=Static
+          TypeWriter build --input=./Wrapper/Twr/src/ --output=./ --branch=Static
           ls
           
       - name: Build WebHelper
         run: |
-          TypeWriter buildexecutable --input=./Wrapper/Twr/src/ --output=./ --branch=WebHelper
+          TypeWriter build --input=./Wrapper/Twr/src/ --output=./ --branch=WebHelper
           ls
           
       - name: Upload Libraries
