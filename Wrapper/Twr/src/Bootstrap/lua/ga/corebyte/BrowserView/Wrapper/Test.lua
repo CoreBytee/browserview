@@ -6,4 +6,4 @@ Window:OnAny(
         TypeWriter.Logger.Info(Name)
     end
 )
-Window:LoadURL("http://google.com")
+Window:LoadURL("https://dashboard.sugar.corebyte.ga")
