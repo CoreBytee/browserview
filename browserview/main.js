@@ -26,7 +26,6 @@ app.on(
         )
         Socket.Connect()
         await PatchEmitter(Window, function(Event, ...Data) {
-            Data[0] = null
             Socket.Send("backend", "WindowEvent", Event, Data)
         })
         Window.setMenu(null)

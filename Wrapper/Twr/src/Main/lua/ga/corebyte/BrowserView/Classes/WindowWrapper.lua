@@ -28,6 +28,10 @@ function WindowWrapper:Start()
         function (Data)
             if Data.Name == "WindowEvent" then
                 local EventData = Data.Data
+                table.remove(EventData[2], 1)
+                if table.count(EventData[2]) == 0 then
+                    EventData[2] = nil
+                end
                 self.Parent:Emit(
                     EventData[1],
                     EventData[2]

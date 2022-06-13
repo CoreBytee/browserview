@@ -14,6 +14,4 @@ Window:Start()
 --    end
 --)
 Window:LoadURL("https://dashboard.sugar.corebyte.ga")
-
-sleep(1000)
-Window:Close()
+Window:OnAny(p)
