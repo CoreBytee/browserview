@@ -6,7 +6,6 @@ local Window = Import("ga.corebyte.BrowserView.Wrapper").Download().LoadAll().Ne
         }
     }
 )
-p("a")
 Window:Start()
 
 --Window:OnAny(
@@ -14,5 +13,7 @@ Window:Start()
 --        TypeWriter.Logger.Info(Name)
 --    end
 --)
-p("a")
 Window:LoadURL("https://dashboard.sugar.corebyte.ga")
+
+sleep(1000)
+Window:Close()

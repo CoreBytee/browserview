@@ -39,6 +39,7 @@ end
 
 function WindowWrapper:Stop()
     self.WindowHelper:Stop()
+    self.Parent:Emit("closed")
 end
 
 function WindowWrapper:Send(To, Name, ...)
