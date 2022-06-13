@@ -2,11 +2,14 @@ local WindowHelper = Import("ga.corebyte.BetterEmitter"):extend()
 
 local Spawn = require("coro-spawn")
 local Uv = require("uv")
+local Json = require("json")
+local Base = require("base64")
 
-function WindowHelper:initialize(Path, SessionId, Port, Stdio)
+function WindowHelper:initialize(Path, SessionId, Port, Stdio, Options)
     self.Path = Path
     self.SessionId = SessionId
     self.Port = Port
+    self.Options = Options or {}
     if Stdio == true then
         self.Stdio = {
             process.stdin.handle,
@@ -23,7 +26,8 @@ function WindowHelper:Start()
             stdio = self.Stdio,
             args = {
                 self.SessionId,
-                self.Port
+                self.Port,
+                Base.encode(Json.encode(self.Options))
             }
         }
     )

@@ -6,7 +6,7 @@ function Window:initialize(Settings)
     self.ExecutablePath = Settings.ExecutablePath
     self.WebHelper = Settings.WebHelper
 
-    self.WindowWrapper = WindowWrapper:new(self, self.ExecutablePath, self.WebHelper, Settings.Stdio)
+    self.WindowWrapper = WindowWrapper:new(self, self.ExecutablePath, self.WebHelper, Settings.Stdio, Settings.Options)
 end
 
 function Window:Start()

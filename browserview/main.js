@@ -14,9 +14,7 @@ app.on(
     'ready',
     async function () {
         const Window = new BrowserWindow(
-            {
-            
-            }
+            JSON.parse(Buffer.from(process.argv[3], "base64"))
         )
 
         var Socket = require('./Socket')
