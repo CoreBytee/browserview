@@ -9,9 +9,10 @@ local FileNames = {
 local FileName = FileNames[TypeWriter.Os]
 local InputFile = BVAD .. "/" .. FileName .. ".tar"
 if not FS.existsSync(InputFile) then
+    TypeWriter.Logger.Info("Downloading %s", FileName)
     local Response, Body = Request(
         "GET",
-        "https://github.com/CoreBytee/browserview/releases/latest/download/BrowserView-win32-x64.tar"
+        "https://github.com/CoreBytee/browserview/releases/latest/download/" .. FileName .. ".tar"
     )
 
 
@@ -22,6 +23,7 @@ if not FS.existsSync(InputFile) then
 end
 
 if not FS.existsSync(BVAD .. "/BrowserView/") then
+    TypeWriter.Logger.Info("Unpacking %s", FileName)
     Import("ga.corebyte.BrowserView.Wrapper.Unzip")(
         InputFile,
         BVAD
