@@ -31,11 +31,12 @@ function WindowHelper:Start()
             }
         }
     )
+    p(Result)
     self.Result = Result
 end
 
 function WindowHelper:Stop()
-	Uv.process_kill(self.Result.handle, Uv.constants.SIGINT)
+	p(Uv.process_kill(self.Result.handle, Uv.constants.SIGINT))
 end
 
 return WindowHelper
